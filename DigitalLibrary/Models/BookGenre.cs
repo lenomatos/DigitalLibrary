@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.ComponentModel.DataAnnotations;
 
 namespace DigitalLibrary.Models
 {
     public class BookGenre : Entity
     {
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Name { get; set; }
     }
 

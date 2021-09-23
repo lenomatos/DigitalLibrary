@@ -1,8 +1,10 @@
-﻿using DigitalLibrary.Models;
+﻿using DigitalLibrary.Extensions;
+using DigitalLibrary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -14,13 +16,15 @@ namespace DigitalLibrary.Controllers
 
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly AppSettings _appSettings;
         public HomeController(ILogger<HomeController> logger,
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager, IOptions<AppSettings> appSettings)
         {
             _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
+            _appSettings = appSettings.Value;
         }
 
         public IActionResult Index()
@@ -55,7 +59,6 @@ namespace DigitalLibrary.Controllers
                 var user = await _userManager.FindByNameAsync(appUser.Email);
                 if (user != null)
                 {
-
                     var result = await _signInManager.PasswordSignInAsync(appUser.Email, appUser.Password, false, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
@@ -63,7 +66,6 @@ namespace DigitalLibrary.Controllers
                     }
                 }
             }
-
             return ErrorMessageRedirect("Dados incorretos!", "Login", "Home");
         }
 
@@ -73,6 +75,7 @@ namespace DigitalLibrary.Controllers
             _logger.LogInformation("User logged out.");
             return RedirectToAction("Index", "Home");
         }
+
 
     }
 }
