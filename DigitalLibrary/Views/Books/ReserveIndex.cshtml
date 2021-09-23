@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DigitalLibrary.Models.Book>
+
+@{
+    ViewData["Title"] = "Reserve";
+}
+
+<h1>Books</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Synopsis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookGenre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Synopsis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookGenre.Id)
+            </td>
+            <td>
+                <a asp-action="Reserve" asp-route-id="@item.Id">Reserve</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

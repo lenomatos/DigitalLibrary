@@ -1,0 +1,45 @@
+﻿@model DigitalLibrary.Models.Book
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Return</h1>
+
+<h3>Are you sure you want to return this?</h3>
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Synopsis)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Synopsis)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Author.Id)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BookGenre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookGenre.Id)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Return">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Return" class="btn btn-success" /> |
+        <a asp-action="ReturnIndex">Back to List</a>
+    </form>
+</div>
